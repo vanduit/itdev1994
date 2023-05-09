@@ -12,6 +12,11 @@ class ChildMyCombonent extends React.Component{
         })
     }
 
+    handleOnClickDelete = (job)=>{
+        console.log('handleOnClickDelete',job);
+        this.props.deleteAJob(job);
+    }
+
     render(){
         let {arrayJob} = this.props;
         let {showJobs} = this.state;
@@ -29,7 +34,7 @@ class ChildMyCombonent extends React.Component{
                         arrayJob.map((item,index)=>{
                             return(
                                 <div key={item.id}>
-                                   {item.title} - {item.salary}
+                                   {item.title} - {item.salary} <></> <span onClick={()=>this.handleOnClickDelete(item)}>x</span>
                                 </div>
                             )
                         })

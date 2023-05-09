@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.scss';
 import MyCombonent from './Example/MyCombonent.js';
 import ChildMyCombonent from './Example/ChildMyCombonent';
+import ListTodo from './Todos/ListTodo';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <p>
           IT-DEV
         </p>
-        <MyCombonent />
+        {/* <MyCombonent /> */}
+        <ListTodo />
       </header>
     </div>
   );

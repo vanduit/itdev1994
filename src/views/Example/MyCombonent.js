@@ -14,9 +14,26 @@ class MyCombonent extends React.Component{
 
     addNewJob = (job)=>{
         console.log('Check data job', job);
+
+        let currenJobs = this.state.arrayJob;
+        currenJobs.push(job);
+
         this.setState({
-            arrayJob: [...this.state.arrayJob, job]
+
+            //arrayJob: [...this.state.arrayJob, job]
+
+            arrayJob: currenJobs
         })
+    }
+
+    deleteAJob = (job)=>{
+        let currenJobs = this.state.arrayJob;
+
+        currenJobs = currenJobs.filter(item => item.id !== job.id);
+        this.setState({
+            arrayJob: currenJobs
+        })
+
     }
 
     render(){
@@ -29,6 +46,7 @@ class MyCombonent extends React.Component{
 
                 <ChildMyCombonent 
                     arrayJob = {this.state.arrayJob}
+                    deleteAJob = {this.deleteAJob}
                 />
 
             </>
