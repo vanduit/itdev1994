@@ -73,10 +73,6 @@ class ListTodo extends React.Component{
         toast.success("Delete data scuccess");
     }
 
-    handleOnEdit = ()=>{
-        alert('Edit data');
-    }
-
     render(){
 
         let {listTodos, editTodo} = this.state; // <=> this.listTodos = this.state.listTodos;
@@ -98,8 +94,24 @@ class ListTodo extends React.Component{
                                 <div className="todo-child" key={item.id}>
                                     {ischkEmty === true ?
                                     <span> {index + 1} - {item.title}</span>
-                                    <button className="edit" type="button">Edit</button>
-                                    <button className="delete" type="button">Delete</button>
+                                    :
+                                    <>
+                                    { editTodo.id === item.id ?
+                                    <span>
+                                        {index + 1} - <input value={editTodo.title} onChange={(event)=>this.handleChangeTitle(event)} />
+
+                                    </span>
+                                    :
+                                    <span>
+                                        {index + 1} - {item.title}
+                                    </span>
+                                    }
+                                    </>
+                                    }
+                                    <button onClick={()=>this.handleEditTodo(item)}  className="edit" type="button">
+                                    {ischkEmty === false && editTodo.id === item.id ? 'Save' : 'Edit'}
+                                    </button>
+                                    <button onClick={()=>this.handleDeleteTodo(item)} className="delete" type="button">Delete</button>
                                 </div>
                             )
                         })
