@@ -16,6 +16,7 @@ class AddTodo extends React.Component{
         event.preventDefault()
         if(!this.state.title){
             alert('missing required params');
+            return;
         }
         
         this.props.addNewTodo({
@@ -28,10 +29,10 @@ class AddTodo extends React.Component{
     }
 
     render(){
-        let {title} = this.state.title;
+        let {title} = this.state;
         return(
             <div className="add-todo">
-                    <input type="text" value={this.state.title} onChange={(event)=>this.handleChangeTitle(event)} />
+                    <input type="text" value={title} onChange={(event)=>this.handleChangeTitle(event)} />
                     <button type="submit" className="add" onClick={(event)=>this.handleOnClick(event)}> Add </button>
             </div>
         )

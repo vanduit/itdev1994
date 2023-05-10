@@ -18,6 +18,10 @@ class ListTodo extends React.Component{
         })
     }
 
+    handleOnEdit = ()=>{
+        alert('Edit data');
+    }
+
     render(){
 
         let {listTodos} = this.state; // <=> this.listTodos = this.state.listTodos;
@@ -34,7 +38,7 @@ class ListTodo extends React.Component{
                             return (
                                 <div className="todo-child" key={item.id}>
                                     <span> {index + 1} - {item.title}</span>
-                                    <button className="edit" type="button">Edit</button>
+                                    <button onClick={()=>this.handleOnEdit()} className="edit" type="button">Edit</button>
                                     <button className="delete" type="button">Delete</button>
                                 </div>
                             )
