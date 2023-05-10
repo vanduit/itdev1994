@@ -3,6 +3,8 @@ import './App.scss';
 import MyCombonent from './Example/MyCombonent.js';
 import ChildMyCombonent from './Example/ChildMyCombonent';
 import ListTodo from './Todos/ListTodo';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -15,6 +17,22 @@ function App() {
         {/* <MyCombonent /> */}
         <ListTodo />
       </header>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+{/* Same as */}
+<ToastContainer />
+
     </div>
   );
 }

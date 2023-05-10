@@ -16,6 +16,7 @@ class AddTodo extends React.Component{
         event.preventDefault()
         if(!this.state.title){
             alert('missing required params');
+            return;
         }
         
         this.props.addNewTodo({
