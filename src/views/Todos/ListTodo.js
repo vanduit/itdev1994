@@ -2,42 +2,41 @@ import React from "react";
 import "./ListTodo.scss";
 import AddTodo from "./AddTodo";
 
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
-class ListTodo extends React.Component{
+class ListTodo extends React.Component {
 
     state = {
-        listTodos : [
-            {id : 'todo1', title: 'Doing Homework'},
-            {id : 'todo2', title: 'Watching Video'},
-            {id : 'todo3', title: 'Play Video Game'}
+        listTodos: [
+            { id: 'todo1', title: 'Doing Homework' },
+            { id: 'todo2', title: 'Watching Video' },
+            { id: 'todo3', title: 'Play Video Game' }
         ],
-        editTodo : {}
+        editTodo: {}
     }
 
-    addNewTodo = (todo)=>{
+    addNewTodo = (todo) => {
         this.setState({
-            listTodos : [...this.state.listTodos,todo]
+            listTodos: [...this.state.listTodos, todo]
         })
 
         toast.success("Add data scuccess");
     }
 
-    handleEditTodo = (todo)=>{
+    handleEditTodo = (todo) => {
 
-        let {editTodo, listTodos} = this.state;
+        let { editTodo, listTodos } = this.state;
 
         let ischkEmty = Object.keys(editTodo).length === 0;
         //save
-        if(ischkEmty === false && editTodo.id === todo.id){
+        if (ischkEmty === false && editTodo.id === todo.id) {
 
             let listTodoCopy = [...listTodos];
-            let objIndex = listTodoCopy.findIndex((item=>item.id === todo.id));
-
+            let objIndex = listTodoCopy.findIndex((item => item.id === todo.id));
             listTodoCopy[objIndex].title = editTodo.title;
 
             this.setState({
-                listTodos : listTodoCopy,
+                listTodos: listTodoCopy,
                 editTodo: {}
             })
 
@@ -48,76 +47,81 @@ class ListTodo extends React.Component{
 
         //edit
         this.setState({
-            editTodo : todo
+            editTodo: todo
         })
     }
 
-    handleChangeTitle = (event)=>{
+    handleChangeTitle = (event) => {
 
-        let editTodoCopy = {...this.state.editTodo};
+        let editTodoCopy = { ...this.state.editTodo };
         editTodoCopy.title = event.target.value;
         this.setState({
-            editTodo : editTodoCopy
+            editTodo: editTodoCopy
         })
     }
 
-    handleDeleteTodo = (todo)=>{
+    handleDeleteTodo = (todo) => {
 
         let currentTodo = this.state.listTodos;
         currentTodo = currentTodo.filter(item => item.id !== todo.id);
 
         this.setState({
-            listTodos : currentTodo
+            listTodos: currentTodo
         })
 
         toast.success("Delete data scuccess");
     }
 
-    render(){
+    render() {
 
-        let {listTodos, editTodo} = this.state; // <=> this.listTodos = this.state.listTodos;
+        let { listTodos, editTodo } = this.state; // <=> this.listTodos = this.state.listTodos;
 
         let ischkEmty = Object.keys(editTodo).length === 0;
         console.log('Check Emty Obj', ischkEmty);
 
-        return(
-            <div className="list-todo-container">
-                
-                <AddTodo 
-                    addNewTodo = {this.addNewTodo}
-                />
+        return (
+            <>
+                <p>
+                    IT-DEV
+                </p>
+                <div className="list-todo-container">
 
-                <div className="list-todo-content">
-                    {listTodos && listTodos.length > 0 &&
-                        listTodos.map((item,index)=>{
-                            return (
-                                <div className="todo-child" key={item.id}>
-                                    {ischkEmty === true ?
-                                    <span> {index + 1} - {item.title}</span>
-                                    :
-                                    <>
-                                    { editTodo.id === item.id ?
-                                    <span>
-                                        {index + 1} - <input value={editTodo.title} onChange={(event)=>this.handleChangeTitle(event)} />
+                    <AddTodo
+                        addNewTodo={this.addNewTodo}
+                    />
 
-                                    </span>
-                                    :
-                                    <span>
-                                        {index + 1} - {item.title}
-                                    </span>
-                                    }
-                                    </>
-                                    }
-                                    <button onClick={()=>this.handleEditTodo(item)}  className="edit" type="button">
-                                    {ischkEmty === false && editTodo.id === item.id ? 'Save' : 'Edit'}
-                                    </button>
-                                    <button onClick={()=>this.handleDeleteTodo(item)} className="delete" type="button">Delete</button>
-                                </div>
-                            )
-                        })
-                    }
+                    <div className="list-todo-content">
+                        {listTodos && listTodos.length > 0 &&
+                            listTodos.map((item, index) => {
+                                return (
+                                    <div className="todo-child" key={item.id}>
+                                        {ischkEmty === true ?
+                                            <span> {index + 1} - {item.title}</span>
+                                            :
+                                            <>
+                                                {editTodo.id === item.id ?
+                                                    <span>
+                                                        {index + 1} - <input value={editTodo.title} onChange={(event) => this.handleChangeTitle(event)} />
+
+                                                    </span>
+                                                    :
+                                                    <span>
+                                                        {index + 1} - {item.title}
+                                                    </span>
+                                                }
+                                            </>
+                                        }
+                                        <button onClick={() => this.handleEditTodo(item)} className="edit" type="button">
+                                            {ischkEmty === false && editTodo.id === item.id ? 'Save' : 'Edit'}
+                                        </button>
+                                        <button onClick={() => this.handleDeleteTodo(item)} className="delete" type="button">Delete</button>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
+            </>
         )
     }
 }
