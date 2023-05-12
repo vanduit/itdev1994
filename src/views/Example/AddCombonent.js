@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AddComponent extends React.Component{
+class AddComponent extends React.Component {
 
 
     state = {
@@ -8,29 +8,30 @@ class AddComponent extends React.Component{
         salary: ''
     }
 
-    handleChangeTitle = (event)=>{
+    handleChangeTitle = (event) => {
         this.setState({
             title: event.target.value
         })
     }
 
-    handleChangeLast = (event)=>{
+    handleChangeLast = (event) => {
         this.setState({
             salary: event.target.value
         })
     }
 
 
-    handleOnClick = (event)=>{
-        event.preventDefault()
-        if(!this.state.title || !this.state.salary){
+    handleOnClick = (event) => {
+        event.preventDefault() // hàm javascript ko load lại trang.
+        if (!this.state.title || !this.state.salary) {
             alert('missing required params');
+            return;
         }
         console.log('>> check data >>', this.state);
         this.props.addNewJob({
-            id:Math.floor(Math.random() * 1001),
-            title:this.state.title,
-            salary:this.state.salary
+            id: Math.floor(Math.random() * 1001),
+            title: this.state.title,
+            salary: this.state.salary
         });
 
         this.setState({
@@ -39,26 +40,26 @@ class AddComponent extends React.Component{
         })
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <form>
-                    <label htmlFor="fname">Job's title:</label><br/>
-                    <input 
-                        type="text" 
+                    <label htmlFor="fname">Job's title:</label><br />
+                    <input
+                        type="text"
                         value={this.state.title}
-                        onChange={(event)=>this.handleChangeTitle(event)}
+                        onChange={(event) => this.handleChangeTitle(event)}
                     />
-                    <br/>
-                    <label htmlFor="lname">Salary:</label><br/>
-                    <input 
+                    <br />
+                    <label htmlFor="lname">Salary:</label><br />
+                    <input
                         type="text"
                         value={this.state.salary}
-                        onChange={(event)=>this.handleChangeLast(event)}
+                        onChange={(event) => this.handleChangeLast(event)}
                     />
-                    <br/><br/>
-                    <input type="submit" onClick={(event)=>this.handleOnClick(event)} />
-                </form> 
+                    <br /><br />
+                    <input type="submit" onClick={(event) => this.handleOnClick(event)} />
+                </form>
             </div>
         )
     }

@@ -2,31 +2,31 @@ import React from "react";
 import ChildMyCombonent from "./ChildMyCombonent";
 import AddComponent from "./AddCombonent";
 
-class MyCombonent extends React.Component{
+class MyCombonent extends React.Component {
 
     state = {
         arrayJob: [
-            {id : 'job1', title: 'DEV', salary: '500'},
-            {id : 'job2', title: 'TEST', salary: '400'},
-            {id : 'job3', title: 'Manager', salary: '1000'}
+            { id: 'job1', title: 'DEV', salary: '500' },
+            { id: 'job2', title: 'TEST', salary: '400' },
+            { id: 'job3', title: 'Manager', salary: '1000' }
         ]
     }
 
-    addNewJob = (job)=>{
+    addNewJob = (job) => {
         console.log('Check data job', job);
 
-        let currenJobs = this.state.arrayJob;
-        currenJobs.push(job);
+        // let currenJobs = this.state.arrayJob;
+        // currenJobs.push(job);
 
         this.setState({
 
-            //arrayJob: [...this.state.arrayJob, job]
+            arrayJob: [...this.state.arrayJob, job]
 
-            arrayJob: currenJobs
+            // arrayJob: currenJobs
         })
     }
 
-    deleteAJob = (job)=>{
+    deleteAJob = (job) => {
         let currenJobs = this.state.arrayJob;
 
         currenJobs = currenJobs.filter(item => item.id !== job.id);
@@ -36,17 +36,17 @@ class MyCombonent extends React.Component{
 
     }
 
-    render(){
-        console.log('>>> check call',this.state);
-        return(
+    render() {
+        console.log('>>> check call', this.state);
+        return (
             <>
-                <AddComponent 
-                    addNewJob = {this.addNewJob}
+                <AddComponent
+                    addNewJob={this.addNewJob}
                 />
 
-                <ChildMyCombonent 
-                    arrayJob = {this.state.arrayJob}
-                    deleteAJob = {this.deleteAJob}
+                <ChildMyCombonent
+                    arrayJob={this.state.arrayJob}
+                    deleteAJob={this.deleteAJob}
                 />
 
             </>
