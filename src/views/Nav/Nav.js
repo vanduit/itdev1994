@@ -10,6 +10,7 @@ class Nav extends React.Component {
                 <NavLink to="/todo" activeClassName="active">Todo</NavLink>
                 <NavLink to="/about" activeClassName="active">About</NavLink>
                 <NavLink to="/myapp" activeClassName="active">MyApp</NavLink>
+                <NavLink to="/testapp" activeClassName="active">MyApp-Test</NavLink>
             </div>
         )
     }

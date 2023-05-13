@@ -27,7 +27,7 @@ class ListTodo extends React.Component {
 
         let { editTodo, listTodos } = this.state;
 
-        let ischkEmty = Object.keys(editTodo).length === 0;
+        let ischkEmty = Object.keys(editTodo).length === 0; // true
         //save
         if (ischkEmty === false && editTodo.id === todo.id) {
 
@@ -102,7 +102,6 @@ class ListTodo extends React.Component {
                                                 {editTodo.id === item.id ?
                                                     <span>
                                                         {index + 1} - <input value={editTodo.title} onChange={(event) => this.handleChangeTitle(event)} />
-
                                                     </span>
                                                     :
                                                     <span>
