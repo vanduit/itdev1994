@@ -11,7 +11,7 @@ import MyApp from './Demo1/MyApp';
 import TEST from './MyAppNew/Test';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import ListUser from './Users/ListUser';
-
+import DetailUser from './Users/DetailUser';
 
 
 
@@ -38,8 +38,11 @@ function App() {
             <Route path="/testapp">
               <TEST />
             </Route >
-            <Route path="/user">
+            <Route path="/user" exact>
               <ListUser />
+            </Route>
+            <Route path="/user/:id">
+              <DetailUser />
             </Route>
           </Switch>
         </header>
