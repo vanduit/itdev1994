@@ -18,6 +18,10 @@ class DetailUser extends React.Component {
         }
     }
 
+    handleBackButton = () => {
+        this.props.history.push(`/user`);
+    }
+
     render() {
         let { user } = this.state;
         let isCheckEmty = Object.keys(user).length === 0;
@@ -29,6 +33,9 @@ class DetailUser extends React.Component {
                         <div>User is email: {user.email} </div>
                         <div>
                             <img src={user.avatar} />
+                        </div>
+                        <div>
+                            <button type="button" onClick={() => this.handleBackButton()}>Back</button>
                         </div>
                     </>
                 }

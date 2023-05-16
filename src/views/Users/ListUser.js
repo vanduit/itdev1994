@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import "./ListUser.scss";
 import Color from "../HOC/Color";
+import { withRouter } from "react-router-dom";
 
 class ListUser extends React.Component {
 
@@ -16,6 +17,10 @@ class ListUser extends React.Component {
         })
     }
 
+    handleViewDetailUser = (user) => {
+        this.props.history.push(`/user/${user.id}`);
+    }
+
     render() {
         let { listUserData } = this.state;
         return (
@@ -26,8 +31,8 @@ class ListUser extends React.Component {
                 {listUserData && listUserData.length > 0 && listUserData.map((item, index) => {
                     return (
                         <div className="list-user-content">
-                            <div className="child">
-                                {item.id} - {item.email} - {item.first_name}
+                            <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
+                                {index + 1} - {item.last_name} - {item.first_name}
                                 <div>
                                     <img src={item.avatar} />
                                 </div>
@@ -40,4 +45,4 @@ class ListUser extends React.Component {
     }
 }
 
-export default Color(ListUser);
+export default withRouter(ListUser);

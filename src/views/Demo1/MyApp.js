@@ -104,7 +104,6 @@ class MyApp extends React.Component {
                                         </>
 
                                     }
-
                                     <button onClick={() => this.handleEditMyApp(item)} className="edit" type="button">
                                         {ischkEmty === false && editMyApp.id === item.id ? 'Save' : 'Edit'}
                                     </button>
