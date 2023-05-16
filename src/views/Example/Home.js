@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import Color from "../HOC/Color";
+import logo from "../../assets/images/logo_1.png";
 
 class Home extends React.Component {
 
@@ -14,7 +15,12 @@ class Home extends React.Component {
     render() {
         console.log('>>> Check props >>>', this.props);
         return (
-            <div>Hello From HomePage</div>
+            <>
+                <div>Hello From HomePage</div>
+                <div>
+                    <img src={logo} />
+                </div>
+            </>
         )
     }
 }
