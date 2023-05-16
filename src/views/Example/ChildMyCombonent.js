@@ -1,48 +1,48 @@
 import React from "react";
 
-class ChildMyCombonent extends React.Component{
+class ChildMyCombonent extends React.Component {
 
     state = {
         showJobs: false
     }
 
-    handleShowHide = ()=>{
+    handleShowHide = () => {
         this.setState({
             showJobs: !this.state.showJobs
         })
     }
 
-    handleOnClickDelete = (job)=>{
-        console.log('handleOnClickDelete',job);
+    handleOnClickDelete = (job) => {
+        console.log('handleOnClickDelete', job);
         this.props.deleteAJob(job);
     }
 
-    render(){
-        let {arrayJob} = this.props;
-        let {showJobs} = this.state;
+    render() {
+        let { arrayJob } = this.props;
+        let { showJobs } = this.state;
 
         let check = showJobs === true ? 'showJobs = true' : 'showJobs = false';
-        console.log('Check conditional :' , check);
+        console.log('Check conditional :', check);
 
-        return(
+        return (
             <>
-            {showJobs === false ? <div><button onClick={()=>this.handleShowHide()}>Show</button></div>
-            :
-            <>
-                <div className="job-lists">
-                    {
-                        arrayJob.map((item,index)=>{
-                            return(
-                                <div key={item.id}>
-                                   {item.title} - {item.salary} <></> <span onClick={()=>this.handleOnClickDelete(item)}>x</span>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            <div><button onClick={()=>this.handleShowHide()} >Hide</button></div>
-            </>
-            }
+                {showJobs === false ? <div><button onClick={() => this.handleShowHide()}>Show</button></div>
+                    :
+                    <>
+                        <div className="job-lists">
+                            {
+                                arrayJob.map((item, index) => {
+                                    return (
+                                        <div key={item.id}>
+                                            {item.title} - {item.salary} <></> <span onClick={() => this.handleOnClickDelete(item)}>x</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <div><button onClick={() => this.handleShowHide()} >Hide</button></div>
+                    </>
+                }
             </>
         )
     }
