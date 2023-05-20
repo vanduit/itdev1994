@@ -48,25 +48,4 @@ class ChildMyCombonent extends React.Component {
     }
 }
 
-// const ChildMyCombonent = (props)=>{
-//             let {arrayJob} = props;
-//         return(
-//             <>
-//                 <div className="job-lists">
-//                     {
-//                         arrayJob.map((item,index)=>{
-//                             if(item.salary >= 500){
-//                             return(
-//                                 <div key={item.id}>
-//                                    {item.title} - {item.salary} $
-//                                 </div>
-//                             )
-//                         }
-//                         })
-//                     }
-//                 </div>
-//             </>
-//         )
-// }
-
 export default ChildMyCombonent;

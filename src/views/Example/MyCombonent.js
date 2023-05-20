@@ -27,8 +27,8 @@ class MyCombonent extends React.Component {
     }
 
     deleteAJob = (job) => {
-        let currenJobs = this.state.arrayJob;
-
+        //let currenJobs  = this.state.arrayJob;
+        let { currenJobs } = this.state;
         currenJobs = currenJobs.filter(item => item.id !== job.id);
         this.setState({
             arrayJob: currenJobs
