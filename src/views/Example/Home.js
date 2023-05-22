@@ -13,21 +13,21 @@ class Home extends React.Component {
     }
 
     handleDeleteUser = (user) => {
-        console.log('Check delete user ', user)
-        //this.props.deleteUserRedux(user)
+        //console.log('Check delete user ', user)
+        this.props.deleteUserRedux(user)
     }
 
     //HOC : Higher order components
     // Khi su dụng HOC sẽ giúp cho chúng components hiện tại ta có nhiều props || nhiều option lựa chọn
     render() {
         console.log('>>> Check props >>>', this.props.dataRedux);
-        let abc = this.props.dataRedux;
-        console.log('>>Check log data', abc);
+        let listUser = this.props.dataRedux;
+        console.log('>>Check log data', listUser);
         return (
             <>
                 <div>Hello From HomePage</div>
                 <div>
-                    {abc && abc.length > 0 && abc.map((item, index) => {
+                    {listUser && listUser.length > 0 && listUser.map((item, index) => {
                         return (
                             <div key={item.id}>
                                 {index + 1} - {item.name} <span style={{ cursor: "pointer" }} onClick={() => this.handleDeleteUser(item)}>x</span>

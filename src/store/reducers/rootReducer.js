@@ -3,7 +3,8 @@ const initState = {
         { id: '1', name: 'ABC' },
         { id: '2', name: 'ABCD' },
         { id: '3', name: 'DUITDEV' },
-    ]
+    ],
+    post: []
 }
 
 const rootReducer = (state = initState, action) => {
@@ -13,7 +14,14 @@ const rootReducer = (state = initState, action) => {
     switch (action.type) {
         case 'DELETE_USER':
             console.log('>> run into delete user ', action)
-            break;
+
+            let users = state.users;
+            users = users.filter(item => item.id !== action.payload.id);
+
+            return {
+                ...state, users
+            }
+
         default:
             return state;
     }
