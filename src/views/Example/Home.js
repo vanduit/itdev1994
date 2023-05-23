@@ -17,6 +17,10 @@ class Home extends React.Component {
         this.props.deleteUserRedux(user)
     }
 
+    handleCreateUser = () => {
+        this.props.addUserRedux()
+    }
+
     //HOC : Higher order components
     // Khi su dụng HOC sẽ giúp cho chúng components hiện tại ta có nhiều props || nhiều option lựa chọn
     render() {
@@ -30,10 +34,13 @@ class Home extends React.Component {
                     {listUser && listUser.length > 0 && listUser.map((item, index) => {
                         return (
                             <div key={item.id}>
-                                {index + 1} - {item.name} <span style={{ cursor: "pointer" }} onClick={() => this.handleDeleteUser(item)}>x</span>
+                                {index + 1} - {item.name}
+                                &nbsp; <span style={{ cursor: "pointer" }} onClick={() => this.handleDeleteUser(item)}>x</span>
                             </div>
                         )
                     })}
+
+                    <button style={{ cursor: "pointer" }} onClick={() => this.handleCreateUser()}>Add new</button>
                 </div>
             </>
         )
@@ -52,6 +59,9 @@ const mapDispatchToProps = (dispatch) => {
         deleteUserRedux: (userDelete) => dispatch({
             type: 'DELETE_USER',
             payload: userDelete
+        }),
+        addUserRedux: () => dispatch({
+            type: 'CREATE_USER',
         })
     }
 }
