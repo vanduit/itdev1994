@@ -9,6 +9,8 @@ import Nav from './Nav/Nav';
 import Home from './Example/Home';
 import MyApp from './Demo1/MyApp';
 import TEST from './MyAppNew/Test';
+import ToDoAppDemo from './DemoToDoApp/ToDoAppDemo';
+import Example from './Example01/example';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import ListUser from './Users/ListUser';
 import DetailUser from './Users/DetailUser';
@@ -36,6 +38,12 @@ function App() {
             </Route>
             <Route path="/testapp">
               <TEST />
+            </Route >
+            <Route path="/testtodoapp">
+              <ToDoAppDemo />
+            </Route >
+            <Route path="/example">
+              <Example />
             </Route >
             <Route path="/user" exact>
               <ListUser />

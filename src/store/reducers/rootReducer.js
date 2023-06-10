@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 const initState = {
     users: [
         { id: '1', name: 'ABC' },
@@ -28,6 +29,21 @@ const rootReducer = (state = initState, action) => {
             return {
                 ...state, users: [...state.users, user]
             }
+        case 'EDIT_USER':
+            let updateUsers = state.users.map(item => {
+                if (item.id === action.payload) {
+                    return {
+                        ...item,
+                        name: action.payload.name
+                    };
+                }
+                return item
+            })
+            return {
+                ...state,
+                users: updateUsers
+            }
+
         default:
             return state;
     }

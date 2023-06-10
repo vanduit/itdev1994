@@ -13,7 +13,7 @@ class MyCombonent extends React.Component {
     }
 
     addNewJob = (job) => {
-        console.log('Check data job', job);
+
 
         // let currenJobs = this.state.arrayJob;
         // currenJobs.push(job);
@@ -24,6 +24,9 @@ class MyCombonent extends React.Component {
 
             // arrayJob: currenJobs
         })
+
+        console.log('Check data job 1', job);
+        console.log('Check data job 2', ...this.state.arrayJob);
     }
 
     deleteAJob = (job) => {

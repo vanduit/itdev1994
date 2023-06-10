@@ -15,6 +15,7 @@ class ADDTEST extends React.Component {
     handleOnClick = (event) => {
         if (!this.state.title) {
             alert('Missing require prameter');
+            return;
         }
 
         this.props.handleAddNewData({
