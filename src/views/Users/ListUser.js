@@ -22,6 +22,13 @@ class ListUser extends React.Component {
         this.props.history.push(`/user/${user.id}`);
     }
 
+    handleDeleteData = async (id) => {
+        await axios.delete(`https://reqres.in/api/users/${id}`);
+        this.setState(prevState => ({
+            listUserData: prevState.listUserData.filter(listUserData => listUserData.id !== id)
+        }));
+    }
+
     render() {
         let { listUserData } = this.state;
         return (
@@ -36,7 +43,13 @@ class ListUser extends React.Component {
                                 {index + 1} - {item.last_name} - {item.first_name}
                                 <div>
                                     <img src={item.avatar} />
+
                                 </div>
+                            </div>
+                            <div>
+                                <button onClick={() => this.handleEditData()} type="submit">Edit</button>
+                                <button onClick={() => this.handleDeleteData(item.id)} type="submit">Delete</button>
+                                <button type="submit">Add</button>
                             </div>
                         </div>
                     )

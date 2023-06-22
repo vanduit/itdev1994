@@ -28,7 +28,7 @@ class DetailUser extends React.Component {
         return (
             <div className="list-content-DetailUser">
                 {isCheckEmty === false &&
-                    <>
+                    <div>
                         <div>User is name: {user.first_name} - {user.last_name}</div>
                         <div>User is email: {user.email} </div>
                         <div>
@@ -37,7 +37,7 @@ class DetailUser extends React.Component {
                         <div>
                             <button type="button" onClick={() => this.handleBackButton()}>Back</button>
                         </div>
-                    </>
+                    </div>
                 }
             </div>
         )

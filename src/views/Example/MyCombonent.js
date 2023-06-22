@@ -12,6 +12,10 @@ class MyCombonent extends React.Component {
         ]
     }
 
+    handleRootFunction = (job) => {
+        console.log('Hello word123');
+    }
+
     addNewJob = (job) => {
 
 
@@ -44,6 +48,7 @@ class MyCombonent extends React.Component {
             <>
                 <AddComponent
                     addNewJob={this.addNewJob}
+                    handleRootFunction={this.handleRootFunction}
                 />
                 <ChildMyCombonent
                     arrayJob={this.state.arrayJob}

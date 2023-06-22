@@ -20,6 +20,10 @@ class AddComponent extends React.Component {
         })
     }
 
+    handleBtnTest = () => {
+        this.props.handleRootFunction('Hello');
+    }
+
 
     handleOnClick = (event) => {
         event.preventDefault() // hàm javascript ko load lại trang.
@@ -60,6 +64,9 @@ class AddComponent extends React.Component {
                     <br /><br />
                     <input type="submit" onClick={(event) => this.handleOnClick(event)} />
                 </form>
+                <button type="submit" onClick={() => this.handleBtnTest()}>
+                    Test
+                </button>
             </div>
         )
     }
