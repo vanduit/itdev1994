@@ -8,8 +8,7 @@ class ListUser extends React.Component {
 
     state = {
         listUserData: [],
-        name: '',
-        job: ''
+        listEditData: {}
     }
 
     async componentDidMount() {
@@ -67,8 +66,59 @@ class ListUser extends React.Component {
         }
     }
 
+    handleEditUser = async (item) => {
+        if (this.state.listEditData.id === item.id) {
+            let { listEditData } = this.state;
+            let updatedUser = {
+                first_name: listEditData.first_name,
+                last_name: listEditData.last_name,
+                avatar: listEditData.avatar
+            };
+
+            let response = await axios.put(`https://reqres.in/api/users/${item.id}`, updatedUser);
+            if (response.status === 200) {
+                let updatedUserData = response.data;
+                this.setState(prevState => ({
+                    listUserData: prevState.listUserData.map(listUserData => listUserData.id === item.id ? updatedUserData : listUserData),
+                    listEditData: {}
+                }));
+            } else {
+                // Xử lý lỗi khi cập nhật người dùng
+                alert('Cập nhật người dùng thất bại');
+            }
+
+        } else {
+            // Chọn người dùng để chỉnh sửa
+            this.setState({
+                listEditData: {
+                    id: item.id,
+                    first_name: item.first_name,
+                    last_name: item.last_name,
+                    avatar: item.avatar
+                }
+            });
+        }
+    }
+
+    handleChangFirtName = (event) => {
+        let editDataFirt = { ...this.state.listEditData };
+        editDataFirt.first_name = event.target.value;
+        this.setState({
+            listEditData: editDataFirt
+        })
+    }
+
+    handleChangLastName = (event) => {
+        let editDataLast = { ...this.state.listEditData };
+        editDataLast.last_name = event.target.value;
+        this.setState({
+            listEditData: editDataLast
+        })
+    }
+
     render() {
-        let { listUserData } = this.state;
+        let { listUserData, listEditData } = this.state;
+        let isChkEmty = Object.keys(listEditData).length === 0;
         return (
             <div className="list-user-container">
                 <div className="title">
@@ -81,23 +131,49 @@ class ListUser extends React.Component {
                 {listUserData && listUserData.length > 0 && listUserData.map((item, index) => {
                     return (
                         <div className="list-user-content">
-                            <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
-                                {index + 1} - {item.last_name} - {item.first_name}
-                                <div>
-                                    <img src={item.avatar} />
+                            {/* <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
+                            </div> */}
+                            <div className="child">
+                                {
+                                    isChkEmty === true ?
+                                        <span>
+                                            {index + 1} - {item.last_name} - {item.first_name}
+                                            <div><img src={item.avatar} /></div>
+                                        </span>
+                                        :
+                                        <>
+                                            {
+                                                listEditData.id === item.id ?
+                                                    <span>
+                                                        {index + 1} -
+                                                        <input value={listEditData.first_name} onChange={(event) => this.handleChangFirtName(event)} />
+                                                        <input value={listEditData.last_name} onChange={(event) => this.handleChangLastName(event)} />
+                                                    </span>
+                                                    :
+                                                    <span>
+                                                        {index + 1} - {item.last_name} - {item.first_name}
+                                                        <div><img src={item.avatar} /></div>
+                                                    </span>
+                                            }
+                                        </>
 
-                                </div>
+
+                                }
                             </div>
                             <div>
-                                <button onClick={() => this.handleEditData()} type="submit">Edit</button>
+                                <button onClick={() => this.handleEditUser(item)} className="edit" type="button">
+                                    {isChkEmty === false && listEditData.id === item.id ? 'Save' : 'Edit'}
+                                </button>
                                 <button onClick={() => this.handleDeleteData(item.id)} type="submit">Delete</button>
                                 <button onClick={() => this.handleAddData()} type="submit">Add</button>
                             </div>
                         </div>
                     )
                 })}
+
             </div>
         )
+
     }
 }
 
