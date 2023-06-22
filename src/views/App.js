@@ -14,6 +14,8 @@ import Example from './Example01/example';
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import ListUser from './Users/ListUser';
 import DetailUser from './Users/DetailUser';
+import Testredux from './TestRedux/testredux';
+import DEMO2 from './DEMO2/Demo2';
 
 
 function App() {
@@ -50,6 +52,12 @@ function App() {
             </Route>
             <Route path="/user/:id">
               <DetailUser />
+            </Route>
+            <Route path="/testredux">
+              <Testredux />
+            </Route>
+            <Route path="/demo2">
+              <DEMO2 />
             </Route>
           </Switch>
         </header>

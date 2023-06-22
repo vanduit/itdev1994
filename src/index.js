@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 //Provider hàm của react và redux
 import { createStore } from 'redux'
 import rootReducer from './store/reducers/rootReducer';
+import rootReducer1 from './store/reducers/rootReducer';
 
 
 const reduxStore = createStore(rootReducer)

@@ -19,6 +19,7 @@ class Home extends React.Component {
 
     handleEditUser = (userId) => {
         this.props.editUserRedux(userId);
+        console.log('check abc123 : ', this.props.editUserRedux(userId));
     };
 
     handleCreateUser = () => {
@@ -27,10 +28,10 @@ class Home extends React.Component {
 
     handleChangeTitle = (event) => {
         console.log('Edit abc : ', event);
-        let editTodoCopy = { ...this.state.editUsers };
-        editTodoCopy.title = event.target.value;
+        let editUsersCopy = { ...this.props.dataReduxEditUsers };
+        editUsersCopy.name = event.target.value;
         this.setState({
-            editUsers: editTodoCopy
+            editUsers: editUsersCopy
         })
     }
 
@@ -39,8 +40,7 @@ class Home extends React.Component {
     render() {
         let listUser = this.props.dataRedux;
         let editUsers = this.props.dataReduxEditUsers;
-        let ischkEmty = Object.keys(editUsers).length === 0;
-        console.log('>>Check ischkEmty data', ischkEmty);
+        // let ischkEmty = Object.keys(editUsers).length === 0;
         return (
             <>
                 <div>Hello From HomePage</div>
@@ -48,7 +48,8 @@ class Home extends React.Component {
                     {listUser && listUser.length > 0 && listUser.map((item, index) => {
                         return (
                             <div key={item.id}>
-                                {
+                                <span>{index + 1} - {item.name} &nbsp; <span style={{ cursor: "pointer" }} onClick={() => this.handleDeleteUser(item)}>x</span></span>
+                                {/* {
                                     ischkEmty === true ?
                                         <span>{index + 1} - {item.name} &nbsp; <span style={{ cursor: "pointer" }} onClick={() => this.handleDeleteUser(item)}>x</span></span>
                                         :
@@ -63,10 +64,10 @@ class Home extends React.Component {
                                                 </span>
                                             }
                                         </>
-                                }
-                                <button onClick={() => this.handleEditUser(item.id)} className="edit" type="button">
+                                } */}
+                                {/* <button onClick={() => this.handleEditUser(item)} className="edit" type="button">
                                     {ischkEmty === false && editUsers.id === item.id ? 'Save' : 'Edit'}
-                                </button>
+                                </button> */}
                             </div>
                         )
                     })}
@@ -95,10 +96,10 @@ const mapDispatchToProps = (dispatch) => {
         addUserRedux: () => dispatch({
             type: 'CREATE_USER',
         }),
-        editUserRedux: (userEdit) => dispatch({
-            type: 'EDIT_USER',
-            payload: userEdit
-        })
+        // editUserRedux: (userEdit) => dispatch({
+        //     type: 'EDIT_USER',
+        //     payload: userEdit
+        // })
     }
 }
 

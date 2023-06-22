@@ -5,7 +5,7 @@ const initState = {
         { id: '2', name: 'ABCD' },
         { id: '3', name: 'DUITDEV' },
     ],
-    post: []
+    editUser: []
 }
 
 const rootReducer = (state = initState, action) => {
@@ -22,28 +22,38 @@ const rootReducer = (state = initState, action) => {
             return {
                 ...state, users
             }
+        case 'TITLE_EDIT':
+            let dataEdit = action.payload;
+            return {
+                ...state, editUser: dataEdit
+            }
         case 'CREATE_USER':
             let id = Math.floor(Math.random() * 10000);
             let user = { id: id, name: `random - ${id}` }
-
             return {
                 ...state, users: [...state.users, user]
             }
         case 'EDIT_USER':
-            let updateUsers = state.users.map(item => {
-                if (item.id === action.payload) {
-                    return {
-                        ...item,
-                        name: action.payload.name
-                    };
+            let dataPayload = action.payload;
+            let listUser = state.users;
+            let listEditUser = state.editUser;
+            let isChkEmty = Object.keys(listEditUser).length === 0;
+            if (isChkEmty === false && listEditUser.id === dataPayload.id) {
+                let listUserCopy = [...listUser];
+                let objIndex = listUserCopy.findIndex((listEditUser => listEditUser.id === dataPayload.id));
+                listUserCopy[objIndex].name = listEditUser.name;
+
+
+                return {
+                    ...state,
+                    users: listUserCopy,
+                    editUser: []
                 }
-                return item
-            })
+            }
             return {
                 ...state,
-                users: updateUsers
+                editUser: dataPayload
             }
-
         default:
             return state;
     }

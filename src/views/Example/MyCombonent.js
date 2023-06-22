@@ -38,7 +38,6 @@ class MyCombonent extends React.Component {
         })
 
     }
-
     render() {
         console.log('>>> check call', this.state);
         return (
@@ -46,12 +45,10 @@ class MyCombonent extends React.Component {
                 <AddComponent
                     addNewJob={this.addNewJob}
                 />
-
                 <ChildMyCombonent
                     arrayJob={this.state.arrayJob}
                     deleteAJob={this.deleteAJob}
                 />
-
             </>
         )
     }
