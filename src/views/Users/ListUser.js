@@ -7,7 +7,9 @@ import { withRouter } from "react-router-dom";
 class ListUser extends React.Component {
 
     state = {
-        listUserData: []
+        listUserData: [],
+        name: '',
+        job: ''
     }
 
     async componentDidMount() {
@@ -29,12 +31,52 @@ class ListUser extends React.Component {
         }));
     }
 
+    handleChangeName = (event) => {
+        let nameChange = event.target.value;
+        this.setState({
+            name: nameChange
+        })
+    }
+
+    handleChangeJob = (event) => {
+        let jobChange = event.target.value;
+        this.setState({
+            job: jobChange
+        })
+    }
+
+    handleAddData = async () => {
+        let { name, job } = this.state
+        let newData = {
+            name: name,
+            job: job
+        }
+        let response = await axios.post("https://reqres.in/api/users", newData);
+        console.log('lllll :', response.status);
+        if (response.status === 201) {
+            // Thêm dữ liệu thành công, cập nhật danh sách người dùng
+            let addedUser = response.data;
+            this.setState(prevState => ({
+                listUserData: [...prevState.listUserData, addedUser],
+                name: '',
+                job: ''
+            }));
+        } else {
+            // Xử lý lỗi khi thêm dữ liệu
+            console.log('Thêm dữ liệu thất bại');
+        }
+    }
+
     render() {
         let { listUserData } = this.state;
         return (
             <div className="list-user-container">
                 <div className="title">
                     Get All List User
+                </div>
+                <div>
+                    Name: <input type="text" value={this.state.name} onChange={(event) => this.handleChangeName(event)} />
+                    Job : <input type="text" value={this.state.job} onChange={(event) => this.handleChangeJob(event)} />
                 </div>
                 {listUserData && listUserData.length > 0 && listUserData.map((item, index) => {
                     return (
@@ -49,7 +91,7 @@ class ListUser extends React.Component {
                             <div>
                                 <button onClick={() => this.handleEditData()} type="submit">Edit</button>
                                 <button onClick={() => this.handleDeleteData(item.id)} type="submit">Delete</button>
-                                <button type="submit">Add</button>
+                                <button onClick={() => this.handleAddData()} type="submit">Add</button>
                             </div>
                         </div>
                     )
