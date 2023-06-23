@@ -8,7 +8,7 @@ class ListUser extends React.Component {
 
     state = {
         listUserData: [],
-        listEditData: {}
+        listEditData: {},
     }
 
     async componentDidMount() {
@@ -31,24 +31,28 @@ class ListUser extends React.Component {
     }
 
     handleChangeName = (event) => {
-        let nameChange = event.target.value;
+        let firtChange = event.target.value;
         this.setState({
-            name: nameChange
+            first_name: firtChange
         })
     }
 
     handleChangeJob = (event) => {
-        let jobChange = event.target.value;
+        let lastChange = event.target.value;
         this.setState({
-            job: jobChange
+            last_name: lastChange
         })
     }
 
     handleAddData = async () => {
-        let { name, job } = this.state
+        let { first_name, last_name } = this.state
         let newData = {
-            name: name,
-            job: job
+            first_name: first_name,
+            last_name: last_name
+        }
+        if (!first_name && !last_name) {
+            alert('Data is not found');
+            return;
         }
         let response = await axios.post("https://reqres.in/api/users", newData);
         console.log('lllll :', response.status);
@@ -67,8 +71,9 @@ class ListUser extends React.Component {
     }
 
     handleEditUser = async (item) => {
-        if (this.state.listEditData.id === item.id) {
-            let { listEditData } = this.state;
+        let { listEditData } = this.state;
+        let isChkEmty = Object.keys(listEditData).length === 0;
+        if (isChkEmty === false && this.state.listEditData.id === item.id) {
             let updatedUser = {
                 first_name: listEditData.first_name,
                 last_name: listEditData.last_name,
@@ -116,6 +121,38 @@ class ListUser extends React.Component {
         })
     }
 
+    // handleUploadFile = async (file) => {
+    //     try {
+    //         let formData = new FormData();
+    //         formData.append("avatar", file);
+
+    //         let response = await axios.post(`https://reqres.in/api/users/${file.avatar}`, formData, {
+    //             headers: {
+    //                 "Content-Type": "multipart/form-data"
+    //             }
+    //         });
+
+    //         const imageUrl = response.data.url;
+
+    //         this.setState(prevState => ({
+    //             listEditData: {
+    //                 ...prevState.listEditData,
+    //                 avatar: imageUrl
+    //             }
+    //         }));
+
+    //         console.log("Upload success! Image URL:", imageUrl);
+    //     } catch (error) {
+    //         console.error("Upload failed:", error);
+    //     }
+    // }
+
+    handleCancle = () => {
+        this.setState({
+            listEditData: {}
+        })
+    }
+
     render() {
         let { listUserData, listEditData } = this.state;
         let isChkEmty = Object.keys(listEditData).length === 0;
@@ -125,8 +162,9 @@ class ListUser extends React.Component {
                     Get All List User
                 </div>
                 <div>
-                    Name: <input type="text" value={this.state.name} onChange={(event) => this.handleChangeName(event)} />
-                    Job : <input type="text" value={this.state.job} onChange={(event) => this.handleChangeJob(event)} />
+                    Firt_Name: <input type="text" value={this.state.name} onChange={(event) => this.handleChangeName(event)} />
+                    Last_Name : <input type="text" value={this.state.job} onChange={(event) => this.handleChangeJob(event)} />
+                    <button onClick={() => this.handleAddData()} type="submit">Add</button>
                 </div>
                 {listUserData && listUserData.length > 0 && listUserData.map((item, index) => {
                     return (
@@ -148,6 +186,7 @@ class ListUser extends React.Component {
                                                         {index + 1} -
                                                         <input value={listEditData.first_name} onChange={(event) => this.handleChangFirtName(event)} />
                                                         <input value={listEditData.last_name} onChange={(event) => this.handleChangLastName(event)} />
+                                                        {/* <input type="file" onChange={(event) => this.handleUploadFile(event.target.files[0])} accept="image/*" /> */}
                                                     </span>
                                                     :
                                                     <span>
@@ -165,7 +204,7 @@ class ListUser extends React.Component {
                                     {isChkEmty === false && listEditData.id === item.id ? 'Save' : 'Edit'}
                                 </button>
                                 <button onClick={() => this.handleDeleteData(item.id)} type="submit">Delete</button>
-                                <button onClick={() => this.handleAddData()} type="submit">Add</button>
+                                <button type="submit" onClick={() => this.handleCancle()}>Cancel</button>
                             </div>
                         </div>
                     )

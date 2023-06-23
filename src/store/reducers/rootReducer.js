@@ -43,7 +43,6 @@ const rootReducer = (state = initState, action) => {
                 let objIndex = listUserCopy.findIndex((listEditUser => listEditUser.id === dataPayload.id));
                 listUserCopy[objIndex].name = listEditUser.name;
 
-
                 return {
                     ...state,
                     users: listUserCopy,
