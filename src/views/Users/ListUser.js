@@ -3,13 +3,31 @@ import axios from "axios";
 import "./ListUser.scss";
 import Color from "../HOC/Color";
 import { withRouter } from "react-router-dom";
+import ReactPaginate from 'react-paginate';
 
 class ListUser extends React.Component {
 
-    state = {
-        listUserData: [],
-        listEditData: {},
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            listUserData: [],
+            currentPage: 0, // Trang hiện tại
+            perPage: 2, // Số lượng phần tử trên mỗi trang
+            listEditData: {}
+        }
     }
+
+    handlePageChange = ({ selected }) => {
+        this.setState({
+            currentPage: selected,
+        });
+    };
+
+    // state = {
+    //     listUserData: [],
+    //     listEditData: {},
+    // }
 
     async componentDidMount() {
         let callUser = await axios.get("https://reqres.in/api/users?page=2");
@@ -121,32 +139,6 @@ class ListUser extends React.Component {
         })
     }
 
-    // handleUploadFile = async (file) => {
-    //     try {
-    //         let formData = new FormData();
-    //         formData.append("avatar", file);
-
-    //         let response = await axios.post(`https://reqres.in/api/users/${file.avatar}`, formData, {
-    //             headers: {
-    //                 "Content-Type": "multipart/form-data"
-    //             }
-    //         });
-
-    //         const imageUrl = response.data.url;
-
-    //         this.setState(prevState => ({
-    //             listEditData: {
-    //                 ...prevState.listEditData,
-    //                 avatar: imageUrl
-    //             }
-    //         }));
-
-    //         console.log("Upload success! Image URL:", imageUrl);
-    //     } catch (error) {
-    //         console.error("Upload failed:", error);
-    //     }
-    // }
-
     handleCancle = () => {
         this.setState({
             listEditData: {}
@@ -154,8 +146,14 @@ class ListUser extends React.Component {
     }
 
     render() {
-        let { listUserData, listEditData } = this.state;
+        let { listUserData, listEditData, currentPage, perPage } = this.state;
         let isChkEmty = Object.keys(listEditData).length === 0;
+
+        let offset = currentPage * perPage;
+        let currentPageData = listUserData.slice(offset, offset + perPage);
+
+        let pageCount = Math.ceil(listUserData.length / perPage);
+
         return (
             <div className="list-user-container">
                 <div className="title">
@@ -166,11 +164,11 @@ class ListUser extends React.Component {
                     Last_Name : <input type="text" value={this.state.job} onChange={(event) => this.handleChangeJob(event)} />
                     <button onClick={() => this.handleAddData()} type="submit">Add</button>
                 </div>
-                {listUserData && listUserData.length > 0 && listUserData.map((item, index) => {
+                {currentPageData && currentPageData.length > 0 && currentPageData.map((item, index) => {
                     return (
                         <div className="list-user-content">
                             {/* <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
-                            </div> */}
+                                </div> */}
                             <div className="child">
                                 {
                                     isChkEmty === true ?
@@ -207,10 +205,54 @@ class ListUser extends React.Component {
                                 <button type="submit" onClick={() => this.handleCancle()}>Cancel</button>
                             </div>
                         </div>
+
                     )
                 })}
+                <div>
+                    <ReactPaginate
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        breakLabel="..."
+                        breakClassName="break-me"
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageChange}
+                        containerClassName="pagination"
+                        activeClassName="active"
+                    />
+                </div>
+
+
+                <div>
+                    {/* Hiển thị dữ liệu của trang hiện tại */}
+                    {/* {currentPageData.map((item, index) => (
+                        <div key={index}>
+                            {index + 1} - {item.first_name} - {item.last_name}
+                            <div><img src={item.avatar} alt="User Avatar" /></div>
+                        </div>
+                    ))} */}
+
+                    {/* Hiển thị thanh phân trang */}
+                    {/* <ReactPaginate
+                        previousLabel="Previous"
+                        nextLabel="Next"
+                        breakLabel="..."
+                        breakClassName="break-me"
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageChange}
+                        containerClassName="pagination"
+                        activeClassName="active"
+                    /> */}
+                </div>
+
+
 
             </div>
+
+
         )
 
     }

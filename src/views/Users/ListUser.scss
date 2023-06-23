@@ -6,4 +6,25 @@
             margin: 0 auto;
         }
     }
+
+    .pagination {
+        display: flex;
+        width: 100px;
+        margin: auto;
+        font-size: 18px;
+        width: 9%;
+        padding: 10px;
+
+        .previous.disabled {
+            display: contents;
+        }
+
+        .active {
+            display: contents;
+        }
+
+        li {
+            display: contents;
+        }
+    }
 }
