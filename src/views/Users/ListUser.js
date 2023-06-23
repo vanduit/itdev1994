@@ -24,11 +24,6 @@ class ListUser extends React.Component {
         });
     };
 
-    // state = {
-    //     listUserData: [],
-    //     listEditData: {},
-    // }
-
     async componentDidMount() {
         let callUser = await axios.get("https://reqres.in/api/users?page=2");
         this.setState({
@@ -167,35 +162,35 @@ class ListUser extends React.Component {
                 {currentPageData && currentPageData.length > 0 && currentPageData.map((item, index) => {
                     return (
                         <div className="list-user-content">
-                            {/* <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
-                                </div> */}
-                            <div className="child">
-                                {
-                                    isChkEmty === true ?
-                                        <span>
-                                            {index + 1} - {item.last_name} - {item.first_name}
-                                            <div><img src={item.avatar} /></div>
-                                        </span>
-                                        :
-                                        <>
-                                            {
-                                                listEditData.id === item.id ?
-                                                    <span>
-                                                        {index + 1} -
-                                                        <input value={listEditData.first_name} onChange={(event) => this.handleChangFirtName(event)} />
-                                                        <input value={listEditData.last_name} onChange={(event) => this.handleChangLastName(event)} />
-                                                        {/* <input type="file" onChange={(event) => this.handleUploadFile(event.target.files[0])} accept="image/*" /> */}
-                                                    </span>
-                                                    :
-                                                    <span>
-                                                        {index + 1} - {item.last_name} - {item.first_name}
-                                                        <div><img src={item.avatar} /></div>
-                                                    </span>
-                                            }
-                                        </>
+                            <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
+
+                                <div className="child">
+                                    {
+                                        isChkEmty === true ?
+                                            <span>
+                                                {index + 1} - {item.last_name} - {item.first_name}
+                                                <div><img src={item.avatar} /></div>
+                                            </span>
+                                            :
+                                            <>
+                                                {
+                                                    listEditData.id === item.id ?
+                                                        <span>
+                                                            {index + 1} -
+                                                            <input value={listEditData.first_name} onChange={(event) => this.handleChangFirtName(event)} />
+                                                            <input value={listEditData.last_name} onChange={(event) => this.handleChangLastName(event)} />
+                                                        </span>
+                                                        :
+                                                        <span>
+                                                            {index + 1} - {item.last_name} - {item.first_name}
+                                                            <div><img src={item.avatar} /></div>
+                                                        </span>
+                                                }
+                                            </>
 
 
-                                }
+                                    }
+                                </div>
                             </div>
                             <div>
                                 <button onClick={() => this.handleEditUser(item)} className="edit" type="button">
@@ -222,34 +217,6 @@ class ListUser extends React.Component {
                         activeClassName="active"
                     />
                 </div>
-
-
-                <div>
-                    {/* Hiển thị dữ liệu của trang hiện tại */}
-                    {/* {currentPageData.map((item, index) => (
-                        <div key={index}>
-                            {index + 1} - {item.first_name} - {item.last_name}
-                            <div><img src={item.avatar} alt="User Avatar" /></div>
-                        </div>
-                    ))} */}
-
-                    {/* Hiển thị thanh phân trang */}
-                    {/* <ReactPaginate
-                        previousLabel="Previous"
-                        nextLabel="Next"
-                        breakLabel="..."
-                        breakClassName="break-me"
-                        pageCount={pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={this.handlePageChange}
-                        containerClassName="pagination"
-                        activeClassName="active"
-                    /> */}
-                </div>
-
-
-
             </div>
 
 
