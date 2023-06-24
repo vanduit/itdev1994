@@ -8,10 +8,16 @@ import { Provider } from 'react-redux'
 //Provider hàm của react và redux
 import { createStore } from 'redux'
 import rootReducer from './store/reducers/rootReducer';
-import rootReducer1 from './store/reducers/rootReducer';
+import rootReducerNew from './store/reducers/rootReducerNew';
+import { combineReducers } from 'redux';
 
 
-const reduxStore = createStore(rootReducer)
+const rootReducerChild = combineReducers({
+  prop1: rootReducer,
+  prop2: rootReducerNew
+})
+
+const reduxStore = createStore(rootReducerChild)
 
 ReactDOM.render(
   <React.StrictMode>

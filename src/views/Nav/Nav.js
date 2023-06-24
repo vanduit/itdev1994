@@ -16,6 +16,7 @@ class Nav extends React.Component {
                 <NavLink to="/user" activeClassName="active">Users</NavLink>
                 <NavLink to="/testredux" activeClassName="active">Test Redux</NavLink>
                 <NavLink to="/demo2" activeClassName="active">Demo App 2</NavLink>
+                <NavLink to="/product" activeClassName="active">Test Product</NavLink>
             </div>
         )
     }
