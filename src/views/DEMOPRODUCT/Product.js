@@ -4,6 +4,7 @@ import Color from "../HOC/Color";
 import { withRouter } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import { connect } from "react-redux";
+import { deleteUser } from "../../store/actions/deleteUser";
 
 class Product extends React.Component {
 
@@ -37,17 +38,14 @@ class Product extends React.Component {
     //     this.props.history.push(`/user/${user.id}`);
     // }
 
-    onClickDataDelete = (userId) => {
-
-        this.props.deleteUserRedux({
-            id: userId
-        });
-    }
+    onClickDataDelete = async (userId) => {
+        await axios.delete(`https://reqres.in/api/users/${userId}`);
+        this.props.deleteUser(userId);
+    };
 
     render() {
 
         let listUserRedux = this.props.dataRedux
-        console.log('YYYY :', listUserRedux);
         let listEditUserRedux = this.props.dataReduxEdit
 
         let { listUserData, listEditData, currentPage, perPage } = this.state;
@@ -139,9 +137,9 @@ const mapDispatchToProps = (dispatch) => {
             payload: dataRedux
         }),
 
-        deleteUserRedux: (userId) => dispatch({
-            type: 'DELETE_USER',
-            payload: userId
+        deleteUser: (userId) => dispatch({
+            type: "DELETE_USER",
+            payload: userId,
         }),
     }
 }

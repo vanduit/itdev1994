@@ -10,6 +10,11 @@ import { createStore } from 'redux'
 import rootReducer from './store/reducers/rootReducer';
 import rootReducerNew from './store/reducers/rootReducerNew';
 import { combineReducers } from 'redux';
+import { applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+
+
+const store = createStore(rootReducerNew, applyMiddleware(thunk));
 
 
 const rootReducerChild = combineReducers({

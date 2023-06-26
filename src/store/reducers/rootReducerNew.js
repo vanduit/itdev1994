@@ -1,10 +1,10 @@
-
+import axios from "axios";
 const initSate = {
     listUserData: [],
     listEditData: {}
 }
 
-const rootReducerNew = (state = initSate, action) => {
+const rootReducerNew = async (state = initSate, action) => {
     switch (action.type) {
         case 'SET_USER_LIST':
             return {
@@ -12,11 +12,13 @@ const rootReducerNew = (state = initSate, action) => {
                 listUserData: action.payload,
             };
         case 'DELETE_USER':
-            let filteredUsers = state.listUserData.filter(listUserData => listUserData.id !== action.payload.id);
+            let updatedList = state.listUserData.filter(
+                (userId) => userId.id !== action.payload
+            );
             return {
                 ...state,
-                listUserData: filteredUsers
-            };
+                listUserData: updatedList || [],
+            }
         default:
             return state
     }

@@ -65,8 +65,8 @@ class Testredux extends React.Component {
 
 const mapStatetoProps = (state) => {
     return {
-        dataRedux: state.users,
-        dataReduxEdit: state.editUser
+        dataRedux: state.prop1.users,
+        dataReduxEdit: state.prop1.editUser
     }
 }
 
