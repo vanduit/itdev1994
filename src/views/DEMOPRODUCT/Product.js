@@ -13,6 +13,8 @@ class Product extends React.Component {
 
         this.state = {
             listUserData: [],
+            first_name: '',
+            last_name: '',
             currentPage: 0, // Trang hiện tại
             perPage: 2, // Số lượng phần tử trên mỗi trang
             listEditData: {}
@@ -38,10 +40,41 @@ class Product extends React.Component {
     //     this.props.history.push(`/user/${user.id}`);
     // }
 
-    onClickDataDelete = async (userId) => {
-        await axios.delete(`https://reqres.in/api/users/${userId}`);
+    onClickDataDelete = (userId) => {
         this.props.deleteUser(userId);
     };
+
+    handleAddData = () => {
+        this.createUser();
+    }
+
+    handleChangeFirstName = (event) => {
+        let firtChange = event.target.value;
+        this.setState({
+            first_name: firtChange
+        })
+    }
+
+    handleChangeLastName = (event) => {
+        let lastChange = event.target.value;
+        this.setState({
+            last_name: lastChange
+        })
+    }
+
+    createUser = async () => {
+        try {
+            let newData = {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name
+            }
+            const response = await axios.post("https://reqres.in/api/users", { newData });
+            const newUser = response.data;
+            this.props.setUserList([...this.props.dataRedux, newUser]);
+        } catch (error) {
+            console.error("Error creating user:", error);
+        }
+    }
 
     render() {
 
@@ -61,12 +94,17 @@ class Product extends React.Component {
                 <div className="title">
                     Get All List User
                 </div>
+                <div>
+                    Firt_Name: <input type="text" value={this.state.firtChange} onChange={(event) => this.handleChangeFirstName(event)} />
+                    Last_Name : <input type="text" value={this.state.last_name} onChange={(event) => this.handleChangeLastName(event)} />
+                    <button onClick={() => this.handleAddData()} type="submit">Add</button>
+                </div>
                 {currentPageData && currentPageData.length > 0 && currentPageData.map((item, index) => {
                     return (
-                        <div className="list-user-content">
-                            <div className="child" key={item.id} onClick={() => this.handleViewDetailUser(item)}>
+                        <div className="list-user-content" key={item.id}>
+                            <div className="child" onClick={() => this.handleViewDetailUser(item)}>
                             </div>
-                            <div className="child">
+                            <div className="child" >
                                 {
                                     isChkEmty === true ?
                                         <span>
@@ -94,7 +132,7 @@ class Product extends React.Component {
                                 }
                             </div>
                             <div>
-                                <button onClick={() => this.onClickDataDelete(item.id)} type="submit">Delete</button>
+                                <button onClick={() => this.onClickDataDelete(item)} type="submit">Delete</button>
                             </div>
                         </div>
 
@@ -131,16 +169,19 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
         setUserList: (dataRedux) => dispatch({
             type: 'SET_USER_LIST',
-            payload: dataRedux
+            payload: dataRedux,
         }),
 
-        deleteUser: (userId) => dispatch({
-            type: "DELETE_USER",
-            payload: userId,
+        deleteUser: (userId) => dispatch(
+            deleteUser(userId)
+        ),
+
+        addUserRedux: () => dispatch({
+            type: 'CREATE_USER',
         }),
+
     }
 }
 

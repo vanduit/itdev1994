@@ -14,15 +14,13 @@ import { applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 
-const store = createStore(rootReducerNew, applyMiddleware(thunk));
-
 
 const rootReducerChild = combineReducers({
   prop1: rootReducer,
   prop2: rootReducerNew
 })
 
-const reduxStore = createStore(rootReducerChild)
+const reduxStore = createStore(rootReducerChild, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,10 +1,11 @@
 import axios from "axios";
+
 const initSate = {
     listUserData: [],
     listEditData: {}
 }
 
-const rootReducerNew = async (state = initSate, action) => {
+const rootReducerNew = (state = initSate, action) => {
     switch (action.type) {
         case 'SET_USER_LIST':
             return {
@@ -12,13 +13,23 @@ const rootReducerNew = async (state = initSate, action) => {
                 listUserData: action.payload,
             };
         case 'DELETE_USER':
-            let updatedList = state.listUserData.filter(
-                (userId) => userId.id !== action.payload
-            );
-            return {
-                ...state,
-                listUserData: updatedList || [],
-            }
+            let users = state.listUserData;
+            users = users.filter(users => users.id !== action.payload.id);
+            console.log('TEST DELETE_USER', users);
+            axios.get("https://reqres.in/api/users?page=2")
+                .then(response => {
+                    const data = response.data;
+                    return {
+                        ...state,
+                        listUserData: data
+                    };
+                })
+                .catch(error => {
+                    console.log(error);
+                    return state;
+                });
+        case 'CREATE_USER':
+            console.log('CREATE_USER', action.payload)
         default:
             return state
     }
