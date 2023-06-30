@@ -12,12 +12,14 @@ import rootReducerNew from './store/reducers/rootReducerNew';
 import { combineReducers } from 'redux';
 import { applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import cartReducer from './store/reducers/cartReducer';
 
 
 
 const rootReducerChild = combineReducers({
   prop1: rootReducer,
-  prop2: rootReducerNew
+  prop2: rootReducerNew,
+  cartProduct: cartReducer
 })
 
 const reduxStore = createStore(rootReducerChild, applyMiddleware(thunk))

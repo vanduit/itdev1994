@@ -7,8 +7,8 @@ class AddComponent extends React.Component {
         title: '',
         salary: ''
     }
-
     handleChangeTitle = (event) => {
+
         this.setState({
             title: event.target.value
         })
@@ -21,7 +21,11 @@ class AddComponent extends React.Component {
     }
 
     handleBtnTest = () => {
-        this.props.handleRootFunction('Hello');
+        let listData = {
+            title: this.state.title,
+            salary: this.state.salary
+        }
+        this.props.handleRootFunction(listData);
     }
 
 

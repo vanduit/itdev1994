@@ -17,6 +17,7 @@ import DetailUser from './Users/DetailUser';
 import Testredux from './TestRedux/testredux';
 import DEMO2 from './DEMO2/Demo2';
 import Product from './DEMOPRODUCT/Product';
+import Cart from './TestRedux/Cart';
 
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
             <Route path="/product">
               <Product />
             </Route>
+            <div>
+              giỏ hàng
+            </div>
           </Switch>
         </header>
         <ToastContainer
@@ -79,7 +83,7 @@ function App() {
         />
         {/* Same as */}
         <ToastContainer />
-
+        <Cart />
       </div>
     </BrowserRouter>
   );

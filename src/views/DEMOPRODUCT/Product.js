@@ -41,7 +41,7 @@ class Product extends React.Component {
     // }
 
     onClickDataDelete = (userId) => {
-        this.props.deleteUser(userId);
+        this.onClickDataDelete(userId.id);
     };
 
     handleAddData = () => {
@@ -62,15 +62,40 @@ class Product extends React.Component {
         })
     }
 
+    onClickDataDelete = async (id) => {
+        await axios.delete(`https://reqres.in/api/users/${id}`);
+        this.setState(prevState => ({
+            listUserData: prevState.listUserData.filter(listUserData => listUserData.id !== id)
+        }));
+    }
+
     createUser = async () => {
         try {
             let newData = {
                 first_name: this.state.first_name,
                 last_name: this.state.last_name
             }
-            const response = await axios.post("https://reqres.in/api/users", { newData });
-            const newUser = response.data;
-            this.props.setUserList([...this.props.dataRedux, newUser]);
+            const response = await axios.post("https://reqres.in/api/users", newData);
+            if (response.status === 201) {
+                // Thêm dữ liệu thành công, cập nhật danh sách người dùng
+                let newUser = response.data;
+                // this.setState(prevState => ({
+                //     listUserData: [...prevState.listUserData, newUser],
+                //     first_name: '',
+                //     last_name: ''
+                // }));
+                let listUserData = [...this.props.dataRedux, newUser]
+                this.setState({
+                    listUserData: [...this.props.dataRedux, newUser],
+                    first_name: '',
+                    last_name: ''
+                })
+                // console.log('ABC :', newUser)
+            }
+
+            // this.props.setUserList([...this.props.dataRedux, newUser]);
+
+
         } catch (error) {
             console.error("Error creating user:", error);
         }
@@ -95,11 +120,15 @@ class Product extends React.Component {
                     Get All List User
                 </div>
                 <div>
-                    Firt_Name: <input type="text" value={this.state.firtChange} onChange={(event) => this.handleChangeFirstName(event)} />
+                    Firt_Name: <input type="text" value={this.state.first_name} onChange={(event) => this.handleChangeFirstName(event)} />
                     Last_Name : <input type="text" value={this.state.last_name} onChange={(event) => this.handleChangeLastName(event)} />
                     <button onClick={() => this.handleAddData()} type="submit">Add</button>
                 </div>
+                <div>
+
+                </div>
                 {currentPageData && currentPageData.length > 0 && currentPageData.map((item, index) => {
+                    // console.log('TEST ITEM', item);
                     return (
                         <div className="list-user-content" key={item.id}>
                             <div className="child" onClick={() => this.handleViewDetailUser(item)}>
@@ -108,7 +137,7 @@ class Product extends React.Component {
                                 {
                                     isChkEmty === true ?
                                         <span>
-                                            {index + 1} - {item.last_name} - {item.first_name}
+                                            {index + 1} - {item.first_name} - {item.last_name}
                                             <div><img src={item.avatar} /></div>
                                         </span>
                                         :
@@ -132,7 +161,7 @@ class Product extends React.Component {
                                 }
                             </div>
                             <div>
-                                <button onClick={() => this.onClickDataDelete(item)} type="submit">Delete</button>
+                                <button onClick={() => this.onClickDataDelete(item.id)} type="submit">Delete</button>
                             </div>
                         </div>
 
@@ -177,10 +206,6 @@ const mapDispatchToProps = (dispatch) => {
         deleteUser: (userId) => dispatch(
             deleteUser(userId)
         ),
-
-        addUserRedux: () => dispatch({
-            type: 'CREATE_USER',
-        }),
 
     }
 }

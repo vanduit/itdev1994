@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import { addToCart } from "../../store/actions/cartAction";
 
 class Testredux extends React.Component {
 
@@ -24,6 +24,11 @@ class Testredux extends React.Component {
         })
     }
 
+    handleBuyProduct = (Product) => {
+        this.props.fireProduct(Product);
+        //console.log('handleBuyProduct', this.props.fireProduct(Product));
+    }
+
     render() {
         let listUserData = this.props.dataRedux
         let listEditUser = this.props.dataReduxEdit
@@ -35,7 +40,7 @@ class Testredux extends React.Component {
                         return (
                             <div key={item.id}>
                                 {
-                                    ischkEmty === true ? <span>{index + 1} - {item.name} <span onClick={() => this.onClickDataDelete(item)}>x</span></span>
+                                    ischkEmty === true ? <span>{index + 1} - {item.name} - {item.price} <span onClick={() => this.onClickDataDelete(item)}>x</span></span>
                                         :
                                         <>
                                             {listEditUser.id === item.id ?
@@ -49,8 +54,11 @@ class Testredux extends React.Component {
                                             }
                                         </>
                                 }
-                                <button onClick={() => this.handleEditUser(item)} className="edit" type="button">
+                                {/* <button onClick={() => this.handleEditUser(item)} className="edit" type="button">
                                     {ischkEmty === false && listEditUser.id === item.id ? 'Save' : 'Edit'}
+                                </button> */}
+                                <button onClick={() => this.handleBuyProduct(item)}>
+                                    Mua hàng
                                 </button>
                             </div>
                         )
@@ -87,6 +95,10 @@ const mapDispatchToProps = (dispatch) => {
             type: 'TITLE_EDIT',
             payload: inputData
         }),
+
+        fireProduct: (Product) => dispatch(
+            addToCart(Product)
+        ),
     }
 }
 

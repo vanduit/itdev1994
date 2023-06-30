@@ -13,7 +13,9 @@ class MyCombonent extends React.Component {
     }
 
     handleRootFunction = (job) => {
-        console.log('Hello word123');
+        this.setState({
+            arrayJob: [...this.state.arrayJob, job]
+        })
     }
 
     addNewJob = (job) => {
