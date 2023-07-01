@@ -25,8 +25,8 @@ const Cart = ({ cartItems, total }) => {
 };
 
 const mapStateToProps = state => ({
-    cartItems: state.items || [], // Kiểm tra nếu items không tồn tại, gán một mảng rỗng làm giá trị mặc định
-    total: state.total,
+    cartItems: state.cartProduct.items || [], // Kiểm tra nếu items không tồn tại, gán một mảng rỗng làm giá trị mặc định
+    total: state.cartProduct.total,
 });
 
 export default connect(mapStateToProps)(Cart);

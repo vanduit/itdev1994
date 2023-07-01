@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 const initState = {
     users: [
-        { id: '1', name: 'Hoa Hồng', price: '35000', image: 'D:/reactjsbasic/itdev1994/src/assets/images/hoa-hong.jpg' },
-        { id: '2', name: 'Hoa Lan', price: '50000', image: 'D:/reactjsbasic/itdev1994/src/assets/images/hoa-hong.jpg' },
-        { id: '3', name: 'Hoa Cúc', price: '60000', image: 'D:/reactjsbasic/itdev1994/src/assets/images/hoa-hong.jpg' },
+        { id: '1', name: 'Hoa Hồng', price: 35000, image: 'D:/reactjsbasic/itdev1994/src/assets/images/hoa-hong.jpg' },
+        { id: '2', name: 'Hoa Lan', price: 50000, image: 'D:/reactjsbasic/itdev1994/src/assets/images/hoa-hong.jpg' },
+        { id: '3', name: 'Hoa Cúc', price: 60000, image: 'D:/reactjsbasic/itdev1994/src/assets/images/hoa-hong.jpg' },
     ],
     editUser: []
 }

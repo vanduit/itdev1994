@@ -18,6 +18,7 @@ import Testredux from './TestRedux/testredux';
 import DEMO2 from './DEMO2/Demo2';
 import Product from './DEMOPRODUCT/Product';
 import Cart from './TestRedux/Cart';
+import ProductList from './TestRedux/ProductList';
 
 
 function App() {
@@ -64,9 +65,9 @@ function App() {
             <Route path="/product">
               <Product />
             </Route>
-            <div>
-              giỏ hàng
-            </div>
+            <Route path="/cart">
+              <ProductList />
+            </Route>
           </Switch>
         </header>
         <ToastContainer
