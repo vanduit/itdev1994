@@ -51,6 +51,17 @@ class ListTodo extends React.Component {
         })
     }
 
+    handleEditTodoV2 = (todo) => {
+        let { listTodos, editTodo } = this.state;
+        let ischkEmty = Object.keys(editTodo).length === 0; // true
+        if (ischkEmty === false && editTodo.id != todo.id) {
+            let listEditTodoCopy = [...listTodos];
+            let objIndex = listEditTodoCopy.findIndex(item => item.id === todo.id);
+            listEditTodoCopy[objIndex].title = editTodo.title;
+        }
+
+    }
+
     handleChangeTitle = (event) => {
 
         let editTodoCopy = { ...this.state.editTodo };
